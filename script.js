@@ -2,97 +2,84 @@ const playCells = document.getElementsByClassName('playCell');
 const newGame = document.getElementById('newGame');
 let turn = 1;
 let numOfTurns = 0;
-let xBoard = [];
-let oBoard = [];
+let board = [];
 
-let wlx1 = ['1X', '2X', '3X']; 
-let wlx2 = ['1X', '4X', '7X']; 
-let wlx3 = ['1X', '5X', '9X'];
-let wlx4 = ['2X', '5X', '8X'];
-let wlx5 = ['3X', '6X', '9X'];
-let wlx6 = ['3X', '5X', '7X'];
-let wlx7 = ['4X', '5X', '6X'];
-let wlx8 = ['7X', '8X', '9X'];
+const winConditions = [
+    ['1X', '2X', '3X'], ['1X', '4X', '7X'], ['1X', '5X', '9X'],
+    ['2X', '5X', '8X'], ['3X', '6X', '9X'], ['3X', '5X', '7X'],
+    ['4X', '5X', '6X'], ['7X', '8X', '9X'],
+    ['1O', '2O', '3O'], ['1O', '4O', '7O'], ['1O', '5O', '9O'],
+    ['2O', '5O', '8O'], ['3O', '6O', '9O'], ['3O', '5O', '7O'],
+    ['4O', '5O', '6O'], ['7O', '8O', '9O']
+];
 
-let wlo1 = ['1O', '2O', '3O']; 
-let wlo2 = ['1O', '4O', '7O']; 
-let wlo3 = ['1O', '5O', '9O'];
-let wlo4 = ['2O', '5O', '8O'];
-let wlo5 = ['3O', '6O', '9O'];
-let wlo6 = ['3O', '5O', '7O'];
-let wlo7 = ['4O', '5O', '6O'];
-let wlo8 = ['7O', '8O', '9O'];
+function createPlayer(mark) {
+    return {
+        mark,
+        moves: [],
+        checkWin() {
+            return winConditions
+                .filter(cond => cond[0].endsWith(mark))
+                .some(cond => cond.every(cell => this.moves.includes(cell)));
+        }
+    };
+}
+
+const playerX = createPlayer('X');
+const playerO = createPlayer('O');
 
 function checkStatus() {
-    if( wlx1.every(i => xBoard.includes(i)) === true || 
-        wlx2.every(i => xBoard.includes(i)) === true || 
-        wlx3.every(i => xBoard.includes(i)) === true ||
-        wlx4.every(i => xBoard.includes(i)) === true ||
-        wlx5.every(i => xBoard.includes(i)) === true ||
-        wlx6.every(i => xBoard.includes(i)) === true ||
-        wlx7.every(i => xBoard.includes(i)) === true ||
-        wlx8.every(i => xBoard.includes(i)) === true ){
-
-        if (confirm('Player 1 wins, would you like to play again?') == true) {
-            location.reload();
-        } else {
-            window.close();
-        }
-    
-}   else if(
-        wlo1.every(i => oBoard.includes(i)) === true || 
-        wlo2.every(i => oBoard.includes(i)) === true || 
-        wlo3.every(i => oBoard.includes(i)) === true ||
-        wlo4.every(i => oBoard.includes(i)) === true ||
-        wlo5.every(i => oBoard.includes(i)) === true ||
-        wlo6.every(i => oBoard.includes(i)) === true ||
-        wlo7.every(i => oBoard.includes(i)) === true ||
-        wlo8.every(i => oBoard.includes(i)) === true ){
-        
-        if (confirm('Player 2 wins, would you like to play again?') == true) {
-            location.reload();
-        } else {
-            window.close();
-        }
-    } 
-
-    else if(numOfTurns == 9){
-        if (confirm('Game tied, would you like to play again?') == true) {
-            location.reload();
-        } else {
-            window.close();
-        }
+    if (playerX.checkWin()) {
+        handleWin('Player 1');
+    } else if (playerO.checkWin()) {
+        handleWin('Player 2');
+    } else if (numOfTurns === 9) {
+        handleTie();
     }
 }
 
-// addEventListener to all cells
-for (const cell of playCells) {
-  cell.addEventListener('click', function onClick() {
+function handleWin(player) {
+    showModal(`${player} wins, would you like to play again?`);
+}
 
-    if (cell.innerHTML === '' && turn === 1) { 
-        cell.setAttribute("id", cell.id + 'X');
-        cell.innerHTML = 'X';
-        turn = 2;
-        numOfTurns++;
-        xBoard.push(cell.id); 
-        setTimeout(checkStatus, 900);
-}   
-    else if (cell.innerHTML === '' && turn === 2){
-        cell.setAttribute("id", cell.id + 'O');
-        cell.innerHTML = 'O';
-        turn = 1;
-        numOfTurns++;
-        oBoard.push(cell.id);
-        setTimeout(checkStatus, 900);
-}})};
+function handleTie() {
+    showModal('Game tied, would you like to play again?');
+}
 
-// addEventListener to new game button
-newGame.addEventListener('click',() => {
-    for (const cell of playCells) {
+function showModal(message) {
+    const modal = document.getElementById('gameModal');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalYes = document.getElementById('modalYes');
+    const modalNo = document.getElementById('modalNo');
+
+    modalMessage.textContent = message;
+    modal.style.display = 'block';
+
+    modalYes.onclick = () => {
+        modal.style.display = 'none';
         location.reload();
-}});
+    };
 
+    modalNo.onclick = () => {
+        modal.style.display = 'none';
+        window.close();
+    };
+}
 
+for (const cell of playCells) {
+    cell.addEventListener('click', function onClick() {
+        if (cell.innerHTML === '') {
+            const currentPlayer = turn === 1 ? playerX : playerO;
+            cell.setAttribute("id", cell.id + currentPlayer.mark);
+            cell.innerHTML = currentPlayer.mark;
+            currentPlayer.moves.push(cell.id);
+            turn = turn === 1 ? 2 : 1;
+            numOfTurns++;
+            setTimeout(checkStatus, 900);
+        }
+    });
+}
 
-
-
+newGame.addEventListener('click', () => {
+    location.reload();
+});
