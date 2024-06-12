@@ -1,6 +1,7 @@
 const playCells = document.getElementsByClassName('playCell');
 const newGame = document.getElementById('newGame');
 let turn = 1;
+let numOfTurns = 0;
 let xBoard = [];
 let oBoard = [];
 
@@ -34,11 +35,10 @@ function checkStatus() {
 
         if (confirm('Player 1 wins, would you like to play again?') == true) {
             location.reload();
-    }   else {
+        } else {
             window.close();
-}
+        }
     
-
 }   else if(
         wlo1.every(i => oBoard.includes(i)) === true || 
         wlo2.every(i => oBoard.includes(i)) === true || 
@@ -53,25 +53,37 @@ function checkStatus() {
             location.reload();
         } else {
             window.close();
-}}}
+        }
+    } 
+
+    else if(numOfTurns == 9){
+        if (confirm('Game tied, would you like to play again?') == true) {
+            location.reload();
+        } else {
+            window.close();
+        }
+    }
+}
 
 // addEventListener to all cells
 for (const cell of playCells) {
   cell.addEventListener('click', function onClick() {
 
     if (cell.innerHTML === '' && turn === 1) { 
-    cell.setAttribute("id", cell.id + 'X');
-    cell.innerHTML = 'X';
-    turn = 2;
-    xBoard.push(cell.id); 
-    checkStatus();
+        cell.setAttribute("id", cell.id + 'X');
+        cell.innerHTML = 'X';
+        turn = 2;
+        numOfTurns++;
+        xBoard.push(cell.id); 
+        setTimeout(checkStatus, 900);
 }   
     else if (cell.innerHTML === '' && turn === 2){
-    cell.setAttribute("id", cell.id + 'O');
-    cell.innerHTML = 'O';
-    turn = 1;
-    oBoard.push(cell.id);
-    checkStatus();
+        cell.setAttribute("id", cell.id + 'O');
+        cell.innerHTML = 'O';
+        turn = 1;
+        numOfTurns++;
+        oBoard.push(cell.id);
+        setTimeout(checkStatus, 900);
 }})};
 
 // addEventListener to new game button
