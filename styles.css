@@ -2,6 +2,7 @@
 
 :root {
     --neon-colour: #510cef;
+    --font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 body {
@@ -183,8 +184,28 @@ button {
     background-color: var(--neon-colour);
 }
 
- /* Github link and text formatting */
- #githubLogo {
+h3 {
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    font-family: var(--font-family);
+    margin-top: -220px;
+    font-size: 12px;
+    color: white;
+}
+
+.formFooter {
+    text-decoration: none;
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+    height: 10vh;
+    width: 100%;
+    overflow: auto;
+    margin: 0px;
+  }
+  
+  /* Github link and text formatting */
+  #githubLogo {
     position: absolute;
     right: 1pc;
     bottom: 1pc;
@@ -203,7 +224,7 @@ button {
     transition: opacity 1s, visibility 1s;
   }
   
-  h5:hover {
+  .formFooter:hover h5 {
     visibility: visible;
     opacity: 1;
   }
