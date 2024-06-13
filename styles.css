@@ -183,13 +183,12 @@ button {
 
 .formFooter {
     text-decoration: none;
-    position: absolute;
-    left: 0%;
-    bottom: 0%;
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
     height: 10vh;
-    width: 100%;
+    width: 10vh;
     overflow: auto;
-    margin: 0px;
+    margin: 0;
   }
 
   /* Github link and text formatting */
