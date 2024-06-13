@@ -104,7 +104,9 @@ function clearBoard() {
     // Clear the cells
     for (const cell of playCells) {
         cell.innerHTML = '';
-        cell.removeAttribute('id');
+        // Extract the original id from the modified id (e.g., "1X" -> "1")
+        let originalId = cell.id.replace(/[XO]$/, '');
+        cell.setAttribute('id', originalId);
     }
 
     // Reset the game state variables
