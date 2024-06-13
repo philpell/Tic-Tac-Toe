@@ -183,3 +183,27 @@ button {
     background-color: var(--neon-colour);
 }
 
+ /* Github link and text formatting */
+ #githubLogo {
+    position: absolute;
+    right: 1pc;
+    bottom: 1pc;
+    height: 4vh;
+    background-blend-mode: lighten;
+  }
+  
+  h5 {
+    position: absolute;
+    right: 3pc;
+    text-decoration: none;
+    color: white;
+    font-family: var(--font-family);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1s, visibility 1s;
+  }
+  
+  h5:hover {
+    visibility: visible;
+    opacity: 1;
+  }
