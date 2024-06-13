@@ -172,10 +172,14 @@ button {
   }
   
   .modal-content button {
-    
     margin: 10px;
     padding: 10px 20px;
     border-radius: 25px;
     border: var(--neon-colour) solid 2px;
-  }
-  
+}
+
+.modal-content button:hover {
+    border: white solid 2px;
+    background-color: var(--neon-colour);
+}
+

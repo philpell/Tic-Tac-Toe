@@ -1,5 +1,8 @@
 const playCells = document.getElementsByClassName('playCell');
 const newGame = document.getElementById('newGame');
+const startModal = document.getElementById('startModal');
+const startYes = document.getElementById('startYes');
+const startNo = document.getElementById('startNo');
 let turn = 1;
 let numOfTurns = 0;
 let board = [];
@@ -57,7 +60,7 @@ function showModal(message) {
 
     modalYes.onclick = () => {
         modal.style.display = 'none';
-        location.reload();
+        clearBoard();
     };
 
     modalNo.onclick = () => {
@@ -81,5 +84,32 @@ for (const cell of playCells) {
 }
 
 newGame.addEventListener('click', () => {
-    location.reload();
+    clearBoard();
 });
+
+// Show the start modal when the page loads
+window.onload = () => {
+    startModal.style.display = 'block';
+};
+
+startYes.onclick = () => {
+    startModal.style.display = 'none';
+};
+
+startNo.onclick = () => {
+    window.close();
+};
+
+function clearBoard() {
+    // Clear the cells
+    for (const cell of playCells) {
+        cell.innerHTML = '';
+        cell.removeAttribute('id');
+    }
+
+    // Reset the game state variables
+    turn = 1;
+    numOfTurns = 0;
+    playerX.moves = [];
+    playerO.moves = [];
+}
