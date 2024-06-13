@@ -6,20 +6,18 @@
 
 body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 0.3fr, 1fr, 1fr;
     background: black;
     font-family: "Bebas Neue", sans-serif;
     color: #fff;
 }
 
 .neon-effect {
-    margin: 0;
     font-size: 75px;
     text-align:center;
     font-weight: normal;
-    padding: 0.4em;
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     text-shadow: 
@@ -92,11 +90,11 @@ button {
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    height: 30pc;
-    width: 80pc;
+    display: flex;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-content: center;
+    align-items: center;
     background-color: black;
 }
 
@@ -207,6 +205,7 @@ button {
     position: absolute;
     right: 3.5em;
     bottom: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-decoration: none;
     color: white;
     visibility: hidden;
@@ -218,3 +217,9 @@ button {
     visibility: visible;
     opacity: 1;
   }
+
+@media screen and (max-width: 40rem) {
+    body {
+        grid-template-columns: 1fr;
+    }
+}
