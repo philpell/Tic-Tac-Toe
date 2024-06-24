@@ -77,16 +77,50 @@ button {
     0 0 70px var(--neon-colour);
 }
 
-.x-btn {
+#x-btn {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     font-size: 100px;
 }
 
-.o-btn {
+#xCounter {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    font-size: 70px;
+    text-align: center;
+    text-shadow: 
+    0 0 2px #fff,
+    0 0 4px #fff,
+    0 0 6px #fff,
+    0 0 15px var(--neon-colour),
+    0 0 23px var(--neon-colour),
+    0 0 36px var(--neon-colour),
+    0 0 45px var(--neon-colour),
+    0 0 70px var(--neon-colour);
+    animation: pulse 1.5s infinite alternate;
+}
+
+#o-btn {
     grid-column: 3 / 4;
     grid-row: 2 / 3;
     font-size: 100px;
+}
+
+#oCounter {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    font-size: 70px;
+    text-align: center;
+    text-shadow: 
+    0 0 2px #fff,
+    0 0 4px #fff,
+    0 0 6px #fff,
+    0 0 15px var(--neon-colour),
+    0 0 23px var(--neon-colour),
+    0 0 36px var(--neon-colour),
+    0 0 45px var(--neon-colour),
+    0 0 70px var(--neon-colour);
+    animation: pulse 1.5s infinite alternate;
 }
 
 .container {

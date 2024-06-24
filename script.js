@@ -1,6 +1,10 @@
 const playCells = document.getElementsByClassName('playCell');
 const newGame = document.getElementById('newGame');
 const startModal = document.getElementById('startModal');
+const oBtn = document.getElementById('o-btn');
+const xBtn = document.getElementById('x-btn');
+const oCount = document.getElementById('oCounter');
+const xCount = document.getElementById('xCounter');
 const startYes = document.getElementById('startYes');
 const startNo = document.getElementById('startNo');
 let turn = 1;
@@ -92,12 +96,16 @@ window.onload = () => {
     startModal.style.display = 'block';
 };
 
-startYes.onclick = () => {
+startX.onclick = () => {
+    xCount.innerHTML = "Player 1";
+    oCount.innerHTML = "Player 2";
     startModal.style.display = 'none';
 };
 
-startNo.onclick = () => {
-    window.close();
+startO.onclick = () => {
+    oCount.innerHTML = "Player 1";
+    xCount.innerHTML = "Player 2";
+    startModal.style.display = 'none';
 };
 
 function clearBoard() {
